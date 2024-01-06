@@ -9,7 +9,8 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [age, setAge] = useState('');
     const [genre, setGenre] = useState('');
-
+    const [adresse, setadresse] = useState('');
+    const [antecedents, setantecedents] = useState('');
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -18,7 +19,9 @@ const Register = () => {
             email,
             password,
             age,
-            genre
+            genre,
+            adresse,
+            antecedents
         };
 
         fetch("https://localhost:7248/User/register", {
@@ -63,11 +66,19 @@ const Register = () => {
                         <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
                         <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
                     </div>
+                    <div>
+                        <label htmlFor="adresse" className="block text-sm font-medium text-gray-700">Adresse</label>
+                        <input type="text" id="adresse" value={adresse} onChange={(e) => setadresse(e.target.value)} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
+                    </div>
+                    <div>
+                        <label htmlFor="antecedents" className="block text-sm font-medium text-gray-700">Antécédents medicaux ?</label>
+                        <input type="text" id="antecedents" value={antecedents} placeholder="écrire s'ils existent" onChange={(e) => setantecedents(e.target.value)} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
+                    </div>
                     {/* Include additional fields as needed */}
                     <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Sign Up</button>
                 </form>
             </div>
-            <Footer />
+            {/* <Footer /> */}
         </>
     );
 };

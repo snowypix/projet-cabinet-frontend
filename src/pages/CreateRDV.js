@@ -9,13 +9,13 @@ const CreateRDV = () => {
     const [medecinId, setMedecinId] = useState('');
     const [patientId, setpatientId] = useState(0);
     const [doctors, setDoctors] = useState([]);
+    const [result, setresult] = useState('');
     // Decode the JWT token
     const token = localStorage.getItem("token");
     const decoded = jwtDecode(token);
-    console.log(decoded.Id);
     useEffect(() => {
         setpatientId(decoded.Id)
-        fetch("https://localhost:7248/User/horaires", {
+        fetch("https://localhost:7248/rdvs/horaires", {
             method: "GET",
             credentials: 'include'
         })
@@ -27,7 +27,7 @@ const CreateRDV = () => {
                 }
             })
             .catch(error => {
-                console.error(error);
+                console.error(error.toString());
             });
     }, []); // Run this effect on mount
 
@@ -41,26 +41,28 @@ const CreateRDV = () => {
         };
 
         try {
-            const response = await fetch('https://localhost:7248/User/rdv/create', {
+            const response = await fetch('https://localhost:7248/rdvs/create', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
                     Date: rendezVousData.Date,
-                    Heure: rendezVousData.Heure,
+                    Heure: rendezVousData.Heure + ':00',
                     MedecinID: rendezVousData.MedecinID,
                     PatientID: rendezVousData.PatientID,
                 })
             });
             console.log(rendezVousData);
             if (response.ok) {
+                setresult("Rendez vous crée avec succes.")
             } else {
                 const errorBody = await response.text();
                 throw new Error(errorBody || 'Something went wrong with the request.');
             }
         } catch (error) {
-            console.error('Failed to create rendez-vous:', error);
+            setresult(error.toString())
+            console.log(result);
         }
     };
 
@@ -69,39 +71,39 @@ const CreateRDV = () => {
         <>
             <Header />
 
-            <form class="p-4" onSubmit={handleSubmit}>
-                <div class="mb-4">
-                    <label for="date" class="block text-gray-700">Date</label>
+            <form className="p-4" onSubmit={handleSubmit}>
+                <div className="mb-4">
+                    <label htmlFor="date" className="block text-gray-700">Date</label>
                     <input
                         id="date"
                         type="date"
                         value={date}
                         onChange={(e) => setDate(e.target.value)}
                         required
-                        class="border border-gray-300 px-3 py-2 rounded-md w-full"
+                        className="border border-gray-300 px-3 py-2 rounded-md w-full"
                     />
                 </div>
 
-                <div class="mb-4">
-                    <label for="heure" class="block text-gray-700">Heure</label>
+                <div className="mb-4">
+                    <label htmlFor="heure" className="block text-gray-700">Heure</label>
                     <input
                         id="heure"
                         type="time"
                         value={heure}
                         onChange={(e) => setHeure(e.target.value)}
                         required
-                        class="border border-gray-300 px-3 py-2 rounded-md w-full"
+                        className="border border-gray-300 px-3 py-2 rounded-md w-full"
                     />
                 </div>
 
-                <div class="mb-4">
-                    <label for="medecinId" class="block text-gray-700">Médecin</label>
+                <div className="mb-4">
+                    <label htmlFor="medecinId" className="block text-gray-700">Médecin</label>
                     <select
                         id="medecinId"
                         value={medecinId}
                         onChange={(e) => setMedecinId(e.target.value)}
                         required
-                        class="border border-gray-300 px-3 py-2 rounded-md w-full"
+                        className="border border-gray-300 px-3 py-2 rounded-md w-full"
                     >
                         {doctors.map((doctor, index) => (
                             <option key={index} value={doctor.id}>
@@ -113,10 +115,11 @@ const CreateRDV = () => {
 
                 <button
                     type="submit"
-                    class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
                 >
                     Créer un Rendez-vous
                 </button>
+                <h2>{result}</h2>
             </form>
 
             <Footer />

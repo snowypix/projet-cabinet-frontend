@@ -8,6 +8,9 @@ import Register from './pages/Register';
 import UserPanel from './pages/UserPanel'
 import CreateRDV from './pages/CreateRDV';
 import ConsulterRDVs from './pages/ConsulterRDVs';
+import DoctorPanel from './pages/DoctorPanel';
+import ConsulterRDVsMedecin from './pages/ConsulterRDVsMedecin';
+import DossierMedical from './pages/DossierMedical';
 function App() {
   return (
     <Router>
@@ -18,6 +21,9 @@ function App() {
         <Route path="/user-panel" Component={UserPanel} />
         <Route path="/user-panel/create" Component={CreateRDV} />
         <Route path="/user-panel/rdvs" Component={ConsulterRDVs} />
+        <Route path="/doctor-panel" Component={DoctorPanel} />
+        <Route path="/doctor-panel/rdvs" Component={ConsulterRDVsMedecin} />
+        <Route path="/doctor-panel/dossier" Component={DossierMedical} />
       </Routes>
     </Router>
   );

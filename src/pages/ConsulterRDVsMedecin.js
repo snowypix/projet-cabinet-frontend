@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-const ConsulterRDVs = () => {
+const ConsulterRDVsMedecin = () => {
     const [rdvs, setRDVs] = useState([]);
 
     useEffect(() => {
@@ -12,7 +12,7 @@ const ConsulterRDVs = () => {
         const decoded = jwtDecode(token);
 
         // Make the API request to fetch RDVs data
-        fetch(`https://localhost:7248/rdvs/${decoded.Id}`)
+        fetch(`https://localhost:7248/rdvs/med/${decoded.Id}`)
             .then(response => response.json())
             .then(data => setRDVs(data))
             .catch(error => console.error(error));
@@ -28,7 +28,7 @@ const ConsulterRDVs = () => {
                     <tr>
                         <th class="px-4 py-2">Date</th>
                         <th class="px-4 py-2">Heure</th>
-                        <th class="px-4 py-2">Nom Medecin</th>
+                        <th class="px-4 py-2">Nom Patient</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,7 +36,7 @@ const ConsulterRDVs = () => {
                         <tr key={rdv.rdvId}>
                             <td class="px-4 py-2">{rdv.date}</td>
                             <td class="px-4 py-2">{rdv.heure}</td>
-                            <td class="px-4 py-2">{rdv.medecinName}</td>
+                            <td class="px-4 py-2">{rdv.patientName}</td>
                         </tr>
                     ))}
                 </tbody>
@@ -46,4 +46,4 @@ const ConsulterRDVs = () => {
     );
 };
 
-export default ConsulterRDVs;
+export default ConsulterRDVsMedecin;
