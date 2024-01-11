@@ -11,6 +11,7 @@ import ConsulterRDVs from './pages/ConsulterRDVs';
 import DoctorPanel from './pages/DoctorPanel';
 import ConsulterRDVsMedecin from './pages/ConsulterRDVsMedecin';
 import DossierMedical from './pages/DossierMedical';
+import PageDossier from './pages/PageDossier';
 function App() {
   return (
     <Router>
@@ -24,6 +25,7 @@ function App() {
         <Route path="/doctor-panel" Component={DoctorPanel} />
         <Route path="/doctor-panel/rdvs" Component={ConsulterRDVsMedecin} />
         <Route path="/doctor-panel/dossier" Component={DossierMedical} />
+        <Route path="/dossiermedical/:id" Component={PageDossier} />
       </Routes>
     </Router>
   );
