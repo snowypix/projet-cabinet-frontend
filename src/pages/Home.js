@@ -12,6 +12,7 @@ const Home = () => {
         const token = localStorage.getItem('token');
         const userLoggedIn = token ? true : false;
         setIsLoggedIn(userLoggedIn);
+        toast.success('Notification message');
     }, []);
 
     return (
