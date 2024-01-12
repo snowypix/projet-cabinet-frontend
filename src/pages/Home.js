@@ -4,16 +4,48 @@ import Footer from '../components/Footer'; // Assuming Footer is in the same dir
 import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { jwtDecode } from 'jwt-decode';
 const Home = () => {
     // State to track if the user is logged in
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+    const [url, setUrl] = useState('');
+    // toast.success('Notification message');
     useEffect(() => {
         const token = localStorage.getItem('token');
         const userLoggedIn = token ? true : false;
+        const decoded = jwtDecode(token);
         setIsLoggedIn(userLoggedIn);
-        toast.success('Notification message');
-    }, []);
+        if (decoded.Type === "Patient") {
+            setUrl("https://localhost:7248/rdvs/");
+        } else if (decoded.Type === "Medecin") {
+            setUrl("https://localhost:7248/rdvs/med/");
+        }
+        fetch(`${url}${decoded.Id}`)
+            .then(response => response.json())
+            .then(data => {
+                const now = new Date();
+                data.forEach(appointment => {
+                    // Replace the time part of the date string with the time from 'heure'
+                    const modifiedDate = appointment.date.replace(/T.*$/, `T${appointment.heure}`);
+
+                    // Convert the modified date string to a Date object
+                    const appointmentDateTime = new Date(modifiedDate);
+
+                    // Calculate the time difference in hours
+                    const differenceInTime = Math.abs(appointmentDateTime - now);
+                    const differenceInHours = differenceInTime / (1000 * 60 * 60);
+
+                    // Check if the appointment is within a 1-day range
+                    const isWithinOneDay = differenceInHours <= 24;
+                    // Log the result for each appointment
+                    if (isWithinOneDay) {
+                        toast.success(`vous avez un rendez vous à : ${modifiedDate}`);
+                    }
+                    console.log(`Appointment ${appointment.rdvId} is ${isWithinOneDay ? 'within' : 'not within'} 1 day range`);
+                });
+            })
+            .catch(error => console.error(error));
+    }, [url]);
 
     return (
 
