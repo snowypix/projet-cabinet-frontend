@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Header from '../components/Header'; // Assuming Header is in the same directory
 import Footer from '../components/Footer'; // Assuming Footer is in the same directory
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Home = () => {
     // State to track if the user is logged in
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -16,6 +18,7 @@ const Home = () => {
 
         <div className="flex flex-col h-screen justify-between">
             <Header />
+            <ToastContainer />
             <main className="mb-auto">
                 <section className="text-center p-10">
                     <h2 className="text-4xl font-bold mb-5">Bienvenue dans la page de notre cabinet</h2>

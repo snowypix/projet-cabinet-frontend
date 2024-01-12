@@ -21,14 +21,28 @@ const DoctorPanel = () => {
         <>
             <Header />
             <div class="p-4">
-                <p class="flex gap-4">
-                    <Link to="/doctor-panel/rdvs" class="text-blue-500">Consulter les RDVs</Link>
-                    <Link to="/doctor-panel/create" class="text-blue-500">Gérer les dossiers médicaux</Link>
-                    <Link to="/doctor-panel/dossier" class="text-blue-500">Consulter les dossiers</Link>
-                </p>
+                {/* Container for cards */}
+                <div class="flex flex-wrap gap-4">
+                    {/* Card 1 */}
+                    <div class="card bg-white shadow-lg rounded-lg overflow-hidden">
+                        <img src="rdv.png" alt="Image description" class="w-full h-32 sm:h-48 object-cover" />
+                        <div class="p-4">
+                            <Link to="/doctor-panel/rdvs" class="text-blue-500 block">Consulter les RDVs</Link>
+                        </div>
+                    </div>
+
+                    {/* Card 2 */}
+                    <div class="card bg-white shadow-lg rounded-lg overflow-hidden">
+                        <img src="dossier.png" alt="Image description" class="w-full h-32 sm:h-48 object-cover" />
+                        <div class="p-4">
+                            <Link to="/doctor-panel/dossier" class="text-blue-500 block">Consulter les dossiers médicaux</Link>
+                        </div>
+                    </div>
+                </div>
             </div>
             <Footer />
         </>
     );
+
 }
 export default DoctorPanel;
