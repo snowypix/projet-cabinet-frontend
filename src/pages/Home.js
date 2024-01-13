@@ -14,40 +14,36 @@ const Home = () => {
     useEffect(() => {
         const token = localStorage.getItem('token');
         const userLoggedIn = token ? true : false;
-        const decoded = jwtDecode(token);
-        setIsLoggedIn(userLoggedIn);
-        if (decoded.Type === "Patient") {
-            setUsertype("Patient");
-            setUrl("https://localhost:7248/rdvs/");
-        } else if (decoded.Type === "Medecin") {
-            setUsertype("Medecin");
-            setUrl("https://localhost:7248/rdvs/med/");
+        if (userLoggedIn) {
+            const decoded = jwtDecode(token);
+            setIsLoggedIn(userLoggedIn);
+            if (decoded.Type === "Patient") {
+                setUsertype("Patient");
+                setUrl("https://localhost:7248/rdvs/");
+            } else if (decoded.Type === "Medecin") {
+                setUsertype("Medecin");
+                setUrl("https://localhost:7248/rdvs/med/");
+            }
+            fetch(`${url}${decoded.Id}`)
+                .then(response => response.json())
+                .then(data => {
+                    const now = new Date();
+                    data.forEach(appointment => {
+                        const modifiedDate = appointment.date.replace(/T.*$/, `T${appointment.heure}`);
+
+                        const appointmentDateTime = new Date(modifiedDate);
+
+                        const differenceInTime = appointmentDateTime - now;
+                        const differenceInHours = differenceInTime / (1000 * 60 * 60);
+                        console.log("diff in time : " + differenceInHours);
+                        const isWithinOneDay = differenceInHours <= 24;
+                        if (isWithinOneDay && (differenceInHours >= 0)) {
+                            toast.success(`vous avez un rendez vous à : ${modifiedDate}`);
+                        }
+                    });
+                })
+                .catch(error => console.error(error));
         }
-        fetch(`${url}${decoded.Id}`)
-            .then(response => response.json())
-            .then(data => {
-                const now = new Date();
-                data.forEach(appointment => {
-                    // Replace the time part of the date string with the time from 'heure'
-                    const modifiedDate = appointment.date.replace(/T.*$/, `T${appointment.heure}`);
-
-                    // Convert the modified date string to a Date object
-                    const appointmentDateTime = new Date(modifiedDate);
-
-                    // Calculate the time difference in hours
-                    const differenceInTime = Math.abs(appointmentDateTime - now);
-                    const differenceInHours = differenceInTime / (1000 * 60 * 60);
-
-                    // Check if the appointment is within a 1-day range
-                    const isWithinOneDay = differenceInHours <= 24;
-                    // Log the result for each appointment
-                    if (isWithinOneDay) {
-                        toast.success(`vous avez un rendez vous à : ${modifiedDate}`);
-                    }
-                    console.log(`Appointment ${appointment.rdvId} is ${isWithinOneDay ? 'within' : 'not within'} 1 day range`);
-                });
-            })
-            .catch(error => console.error(error));
     }, [url]);
 
     return (
@@ -68,7 +64,7 @@ const Home = () => {
                             <Link to="doctor-panel">Mon espace médecin</Link>
                         </button>
                     ) : (
-                        <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                        <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
                             <Link to="login">Connexion</Link>
                         </button>
                     )}

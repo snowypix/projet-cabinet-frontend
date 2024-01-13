@@ -2,12 +2,12 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { Navigate } from 'react-router';
+import { useNavigate } from 'react-router';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
+    const navigate = useNavigate();
     const handleSubmit = (e) => {
         e.preventDefault();
         const user = {
@@ -27,7 +27,7 @@ const Login = () => {
             })
             .then((data) => {
                 localStorage.setItem('token', data.token)
-                Navigate("/");
+                navigate("/");
             })
             .catch((error) => {
                 console.log(error);

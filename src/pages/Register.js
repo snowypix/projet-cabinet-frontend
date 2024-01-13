@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { Navigate } from 'react-router';
-
+import { useNavigate } from 'react-router';
 const Register = () => {
     const [FullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
@@ -11,6 +10,7 @@ const Register = () => {
     const [genre, setGenre] = useState('');
     const [adresse, setadresse] = useState('');
     const [antecedents, setantecedents] = useState('');
+    const navigate = useNavigate();
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -31,7 +31,7 @@ const Register = () => {
         })
             .then((res) => {
                 res.text().then((text) => console.log(text));
-                Navigate("/");
+                navigate("/");
             })
             .catch((error) => {
                 console.log(error);
@@ -78,7 +78,7 @@ const Register = () => {
                     <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Sign Up</button>
                 </form>
             </div>
-            {/* <Footer /> */}
+            <Footer />
         </>
     );
 };
