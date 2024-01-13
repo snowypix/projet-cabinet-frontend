@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
     const navigate = useNavigate();
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -26,11 +27,16 @@ const Login = () => {
                 return res.json();
             })
             .then((data) => {
-                localStorage.setItem('token', data.token)
-                navigate("/");
+                if (data.token) {
+                    localStorage.setItem('token', data.token);
+                    navigate("/");
+                } else {
+                    setError(data.message);
+                }
+
             })
             .catch((error) => {
-                console.log(error);
+                setError(error);
             });
     };
 
@@ -42,6 +48,12 @@ const Login = () => {
                     <h2 className="text-center text-2xl font-semibold">Login</h2>
                     <input type="text" placeholder="Username" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" />
                     <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" />
+                    {error && (
+                        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                            <strong className="font-bold">Error:</strong>
+                            <span className="block sm:inline"> Invalid username or password.</span>
+                        </div>
+                    )}
                     <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Login</button>
                 </form>
             </div>
