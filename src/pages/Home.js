@@ -8,6 +8,7 @@ import { jwtDecode } from 'jwt-decode';
 const Home = () => {
     // State to track if the user is logged in
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [userType, setUsertype] = useState('');
     const [url, setUrl] = useState('');
     // toast.success('Notification message');
     useEffect(() => {
@@ -16,8 +17,10 @@ const Home = () => {
         const decoded = jwtDecode(token);
         setIsLoggedIn(userLoggedIn);
         if (decoded.Type === "Patient") {
+            setUsertype("Patient");
             setUrl("https://localhost:7248/rdvs/");
         } else if (decoded.Type === "Medecin") {
+            setUsertype("Medecin");
             setUrl("https://localhost:7248/rdvs/med/");
         }
         fetch(`${url}${decoded.Id}`)
@@ -56,10 +59,18 @@ const Home = () => {
                 <section className="text-center p-10">
                     <h2 className="text-4xl font-bold mb-5">Bienvenue dans la page de notre cabinet</h2>
                     <p className="text-xl mb-5">Toujours pour répondre a vos besoins.</p>
-                    {isLoggedIn ? (
-                        <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"><Link to="user-panel">Mon espace personnel</Link></button>
+                    {userType === "Patient" ? (
+                        <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                            <Link to="user-panel">Mon espace personnel</Link>
+                        </button>
+                    ) : userType === "Medecin" ? (
+                        <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                            <Link to="doctor-panel">Mon espace médecin</Link>
+                        </button>
                     ) : (
-                        <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"><Link to="login">Connexion</Link></button>
+                        <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                            <Link to="login">Connexion</Link>
+                        </button>
                     )}
                 </section>
                 <section className="p-10 bg-gray-100">
