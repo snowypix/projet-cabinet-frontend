@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { jwtDecode } from 'jwt-decode';
+
 const Home = () => {
     // State to track if the user is logged in
     const [isLoggedIn, setIsLoggedIn] = useState(false);

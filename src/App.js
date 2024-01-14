@@ -1,7 +1,5 @@
 import { BrowserRouter as Router, Routes } from 'react-router-dom';
-import {
-  Route
-} from "react-router-dom";
+import { Route } from "react-router-dom";
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -15,6 +13,7 @@ import PageDossier from './pages/PageDossier';
 import CreatePrescription from './pages/CreatePrescription';
 import CreateExamen from './pages/CreateExamen';
 import Traitements from './pages/Traitements';
+import UserCrud from './pages/UserCrud';
 function App() {
   return (
     <Router>
@@ -32,6 +31,7 @@ function App() {
         <Route path="/dossiermedical/:id" Component={PageDossier} />
         <Route path='/create-prescription/:id' Component={CreatePrescription} />
         <Route path='/create-examen/:id' Component={CreateExamen} />
+        <Route path='/admin-panel' Component={UserCrud} />
       </Routes>
     </Router>
   );

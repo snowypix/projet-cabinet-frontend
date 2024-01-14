@@ -29,10 +29,13 @@ const Register = () => {
             headers: { "Content-type": "application/json" },
             body: JSON.stringify(user)
         })
-            .then((res) => {
+            .then((res) =>
+            {
                 res.text().then((text) => console.log(text));
-                Navigate("/");
             })
+
+            .then((data) => {Navigate("/Login");})
+
             .catch((error) => {
                 console.log(error);
             });

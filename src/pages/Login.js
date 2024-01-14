@@ -1,7 +1,5 @@
-// Login.js
 import React, { useState } from 'react';
 import Header from '../components/Header';
-import Footer from '../components/Footer';
 import { Navigate } from 'react-router';
 
 const Login = () => {
@@ -45,7 +43,6 @@ const Login = () => {
                     <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Login</button>
                 </form>
             </div>
-            <Footer />
         </>
     );
 };
