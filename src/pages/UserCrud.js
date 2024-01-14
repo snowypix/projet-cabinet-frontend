@@ -10,7 +10,9 @@ const UserCrud = () => {
         FullName: '',
         Genre: '',
         Age: '',
-        Adresse: ''
+        Adresse: '',
+        Antecedents: '',
+        UserType: ''
         // Add other properties as needed
     });
 
@@ -20,14 +22,14 @@ const UserCrud = () => {
     }, []);
 
     const fetchUsers = async () => {
-            const response = await fetch('https://localhost:7248/User/all', {
-                method: 'GET',
-                headers: { "Content-type": "application/json" },
-                credentials: 'include',
-            });
+        const response = await fetch('https://localhost:7248/User/all', {
+            method: 'GET',
+            headers: { "Content-type": "application/json" },
+            credentials: 'include',
+        });
 
-            const data = await response.json();
-            setUsers(data);
+        const data = await response.json();
+        setUsers(data);
     };
 
     const handleInputChange = (e) => {
@@ -35,11 +37,10 @@ const UserCrud = () => {
         setNewUser((prevUser) => ({ ...prevUser, [name]: value }));
     };
 
-    const handleAddUser = async (e) =>
-    {
+    const handleAddUser = async (e) => {
         e.preventDefault();
         try {
-            await fetch('https://localhost:7248/User/register', {
+            await fetch('https://localhost:7248/User/add', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newUser),
@@ -47,7 +48,7 @@ const UserCrud = () => {
                 .then((response) => response.json())
                 .then((data) => console.log('Success:', data))
                 .catch((error) => console.error('Error:', error));
-    
+
             // Reset the form and fetch updated user list
             setNewUser({
                 Email: '',
@@ -56,6 +57,7 @@ const UserCrud = () => {
                 Genre: '',
                 Age: 0,
                 Adresse: '',
+                UserType: ''
                 // Add other properties as needed
             });
             fetchUsers();
@@ -63,7 +65,7 @@ const UserCrud = () => {
             console.error('Error adding user:', error.message);
         }
     };
-    
+
 
     return (
         <>
@@ -76,20 +78,22 @@ const UserCrud = () => {
                 <input type="text" name="Genre" value={newUser.Genre} onChange={handleInputChange} placeholder="Genre" />
                 <input type="number" name="Age" value={newUser.Age} onChange={handleInputChange} placeholder="Age" />
                 <input type="text" name="Adresse" value={newUser.Adresse} onChange={handleInputChange} placeholder="Adresse" />
+                <input type="text" name="Antecedents" value={newUser.Antecedents} onChange={handleInputChange} placeholder="Antecedents" />
+                <input type="text" name="UserType" value={newUser.UserType} onChange={handleInputChange} placeholder="UserType" />
                 <button onClick={handleAddUser} className="bg-red text-black hover:bg-gray-200 p-2 rounded transition duration-300 mx-2">
                     Add user
                 </button>
             </div>
-            <div> <br/>
+            <div> <br />
                 <h2>User List</h2>
                 <ul>
                     {users.map((user) => (
                         <li key={user.id}>
-Email: {user.email}, {'\u00A0'}{'\u00A0'} Full Name: {user.fullName}, {'\u00A0'}{'\u00A0'} Age: {user.age}, {'\u00A0'}{'\u00A0'} Genre: {user.genre}, {'\u00A0'}{'\u00A0'} Adresse: {user.adresse}. {/* Add other properties as needed */}
+                            Email: {user.email}, {'\u00A0'}{'\u00A0'} Full Name: {user.fullName}, {'\u00A0'}{'\u00A0'} Age: {user.age}, {'\u00A0'}{'\u00A0'} Genre: {user.genre}, {'\u00A0'}{'\u00A0'} Adresse: {user.adresse}. {/* Add other properties as needed */}
                         </li>
                     ))}
                 </ul>
-            </div> <br/>
+            </div> <br />
             <Footer />
         </>
     );
