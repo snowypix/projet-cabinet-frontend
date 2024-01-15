@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import HeaderAdmin from '../components/HeaderAdmin';
 import Footer from '../components/Footer';
 import { jwtDecode } from 'jwt-decode';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const UserCrud = () => {
     const [users, setUsers] = useState([]);
