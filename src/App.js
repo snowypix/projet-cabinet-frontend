@@ -14,6 +14,7 @@ import CreatePrescription from './pages/CreatePrescription';
 import CreateExamen from './pages/CreateExamen';
 import Traitements from './pages/Traitements';
 import UserCrud from './pages/UserCrud';
+import UserUpdate from './pages/UserUpdate';
 function App() {
   return (
     <Router>
@@ -32,6 +33,7 @@ function App() {
         <Route path='/create-prescription/:id' Component={CreatePrescription} />
         <Route path='/create-examen/:id' Component={CreateExamen} />
         <Route path='/admin-panel' Component={UserCrud} />
+        <Route path='/admin-panel/update/:id' Component={UserUpdate} />
       </Routes>
     </Router>
   );

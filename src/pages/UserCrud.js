@@ -13,10 +13,10 @@ const UserCrud = () => {
         Email: '',
         Password: '',
         FullName: '',
-        Genre: '',
+        Genre: 'Homme',
         Age: '',
         Adresse: '',
-        UserType: '',
+        UserType: 'Patient',
         Antecedents: '',
         HoraireD: '',
         HoraireF: '',
@@ -58,6 +58,17 @@ const UserCrud = () => {
         const { name, value } = e.target;
         setNewUser((prevUser) => ({ ...prevUser, [name]: value }));
     };
+    const handleDelete = (userId) => {
+        fetch(`https://localhost:7248/User/delete/${userId}`, {
+            method: 'DELETE',
+            headers: { "Content-type": "application/json" },
+            credentials: 'include'
+        }).then((res) => {
+            window.location.reload();
+        }).catch((error) => {
+            console.error('Failed to delete the user:', error);
+        })
+    }
 
     const handleAddUser = async (e) => {
         e.preventDefault();
@@ -175,6 +186,8 @@ const UserCrud = () => {
                                 <th className="px-4 py-2 border-b border-gray-300">Genre</th>
                                 <th className="px-4 py-2 border-b border-gray-300">Adresse</th>
                                 <th className="px-4 py-2 border-b border-gray-300">Antécédents</th>
+                                <th className="px-4 py-2 border-b border-gray-300">Action</th>
+                                <th className="px-4 py-2 border-b border-gray-300">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -186,16 +199,24 @@ const UserCrud = () => {
                                     <td className="px-4 py-2 border-b border-gray-300 truncate">{user.genre}</td>
                                     <td className="px-4 py-2 border-b border-gray-300 truncate">{user.adresse}</td>
                                     <td className="px-4 py-2 border-b border-gray-300 truncate">{user.antecedents}</td>
+                                    <td className="px-4 py-2 border-b border-gray-300">
+                                        <Link to={`/admin-panel/update/${user.id}`} className="text-indigo-600 hover:text-indigo-900 px-4 py-2 rounded">
+                                            Update
+                                        </Link>
+                                        <button onClick={() => handleDelete(user.id)} className="text-red-600 hover:text-red-900 px-4 py-2 rounded">
+                                            Delete
+                                        </button>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div >
 
             <Footer />
         </>
     );
-};
 
+};
 export default UserCrud;
