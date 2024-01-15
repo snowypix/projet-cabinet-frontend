@@ -127,9 +127,17 @@ const UserCrud = () => {
 
                 <div className="space-y-4">
                     <input className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" name="Email" value={newUser.Email} onChange={handleInputChange} placeholder="Email" />
-                    <input className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" type="password" name="Password" value={newUser.Password} onChange={handleInputChange} placeholder="Password" />
-                    <input className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" name="FullName" value={newUser.FullName} onChange={handleInputChange} placeholder="Full Name" />
-                    <input className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" name="Genre" value={newUser.Genre} onChange={handleInputChange} placeholder="Genre" />
+                    <input className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" type="password" name="Password" value={newUser.Password} onChange={handleInputChange} placeholder="Mot de passe" />
+                    <input className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" name="FullName" value={newUser.FullName} onChange={handleInputChange} placeholder="Nom complet" />
+                    <select
+                        className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        name="Genre"
+                        value={newUser.Genre}
+                        onChange={handleInputChange}
+                    >
+                        <option value="Homme">Homme</option>
+                        <option value="Femme">Femme</option>
+                    </select>
                     <input className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" type="number" name="Age" value={newUser.Age} onChange={handleInputChange} placeholder="Age" />
                     <input className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" name="Adresse" value={newUser.Adresse} onChange={handleInputChange} placeholder="Adresse" />
 
@@ -142,8 +150,6 @@ const UserCrud = () => {
                     {renderAdditionalFields()}
                 </div>
 
-
-
                 <br />
                 <button onClick={handleAddUser} className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300">Add user</button>
             </div>
@@ -154,7 +160,7 @@ const UserCrud = () => {
                         <thead>
                             <tr className="bg-gray-200">
                                 <th className="px-4 py-2 border-b border-gray-300">Email</th>
-                                <th className="px-4 py-2 border-b border-gray-300">Full Name</th>
+                                <th className="px-4 py-2 border-b border-gray-300">Nom complet</th>
                                 <th className="px-4 py-2 border-b border-gray-300">Age</th>
                                 <th className="px-4 py-2 border-b border-gray-300">Genre</th>
                                 <th className="px-4 py-2 border-b border-gray-300">Adresse</th>
@@ -179,7 +185,6 @@ const UserCrud = () => {
 
             <Footer />
         </>
-
     );
 };
 
