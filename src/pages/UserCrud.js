@@ -80,23 +80,29 @@ const UserCrud = () => {
 
         if (userType === 'Patient') {
             return (
-                <input
-                    type="text"
-                    name="Antecedents"
-                    value={newUser.Antecedents}
-                    onChange={handleInputChange}
-                    placeholder="Antecedents"
-                />
+                <>
+                    <br></br>
+                    <input
+                        type="text"
+                        name="Antecedents"
+                        value={newUser.Antecedents}
+                        onChange={handleInputChange}
+                        placeholder="Antecedents"
+                        className='w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    />
+                </>
             );
         } else if (userType === 'Médecin' || userType === 'Infirmier') {
             return (
                 <>
+                    <br></br>
                     <input
                         type="time"
                         name="HoraireDebut"
                         value={newUser.HoraireD}
                         onChange={handleInputChange}
                         placeholder="HorarireDebut"
+                        className='w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500'
                     />
                     <input
                         type="time"
@@ -104,6 +110,7 @@ const UserCrud = () => {
                         value={newUser.HoraireF}
                         onChange={handleInputChange}
                         placeholder="HorarireFin"
+                        className='w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500'
                     />
                 </>
             );
@@ -115,38 +122,64 @@ const UserCrud = () => {
     return (
         <>
             <HeaderAdmin />
-            <div className="max-w-md mx-auto my-8 p-6 bg-white rounded shadow-md">
-                <h2 className="text-2xl font-bold mb-4">Create User</h2>
+            <div className="max-w-2xl mx-auto my-8 p-8 bg-white rounded-lg shadow-md">
+                <h2 className="text-3xl font-bold mb-6 text-gray-700">Create User</h2>
 
-                <input type="text" name="Email" value={newUser.Email} onChange={handleInputChange} placeholder="Email" />
-				<input type="password" name="Password" value={newUser.Password} onChange={handleInputChange} placeholder="Password" />
-                <input type="text" name="FullName" value={newUser.FullName} onChange={handleInputChange} placeholder="Full Name" />
-                <input type="text" name="Genre" value={newUser.Genre} onChange={handleInputChange} placeholder="Genre" />
-                <input type="number" name="Age" value={newUser.Age} onChange={handleInputChange} placeholder="Age" />
-                <input type="text" name="Adresse" value={newUser.Adresse} onChange={handleInputChange} placeholder="Adresse" />                
-                <select className="border p-2 mb-4 w-full rounded" name="UserType" value={newUser.UserType} onChange={handleInputChange}>
-                    <option value="Admin">Admin</option>
-                    <option value="Patient">Patient</option>
-                    <option value="Médecin">Médecin</option>
-                    <option value="Infirmier">Infirmier</option>
-                </select>
+                <div className="space-y-4">
+                    <input className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" name="Email" value={newUser.Email} onChange={handleInputChange} placeholder="Email" />
+                    <input className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" type="password" name="Password" value={newUser.Password} onChange={handleInputChange} placeholder="Password" />
+                    <input className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" name="FullName" value={newUser.FullName} onChange={handleInputChange} placeholder="Full Name" />
+                    <input className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" name="Genre" value={newUser.Genre} onChange={handleInputChange} placeholder="Genre" />
+                    <input className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" type="number" name="Age" value={newUser.Age} onChange={handleInputChange} placeholder="Age" />
+                    <input className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" name="Adresse" value={newUser.Adresse} onChange={handleInputChange} placeholder="Adresse" />
 
-                {renderAdditionalFields()}
+                    <select className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" name="UserType" value={newUser.UserType} onChange={handleInputChange}>
+                        <option value="Admin">Admin</option>
+                        <option value="Patient">Patient</option>
+                        <option value="Médecin">Médecin</option>
+                        <option value="Infirmier">Infirmier</option>
+                    </select>
+                    {renderAdditionalFields()}
+                </div>
 
-                <br /><button onClick={handleAddUser} className="bg-red text-black hover:bg-gray-200 p-2 rounded transition duration-300 mx-2"> Add user </button>
+
+
+                <br />
+                <button onClick={handleAddUser} className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300">Add user</button>
             </div>
-            <div>
-                <h2>User List</h2>
-                <ul>
-                {users.map((user) => (
-                    <li key={user.id}>
-                        Email: {user.email}, {'\u00A0'}{'\u00A0'} Full Name: {user.fullName}, {'\u00A0'}{'\u00A0'} Age: {user.age}, {'\u00A0'}{'\u00A0'} Genre: {user.genre}, {'\u00A0'}{'\u00A0'} Adresse: {user.adresse},{'\u00A0'}{'\u00A0'} Antécédents: {user.antecedents}.
-                    </li>
-                ))}
-                </ul>
-            </div> <br />
+            <div className="max-w-2xl mx-auto my-8">
+                <h2 className="text-xl font-bold text-gray-700 mb-4">User List</h2>
+                <div className="max-w-4xl mx-auto my-8 overflow-x-auto">
+                    <table className="min-w-full table-auto border-collapse border border-gray-300">
+                        <thead>
+                            <tr className="bg-gray-200">
+                                <th className="px-4 py-2 border-b border-gray-300">Email</th>
+                                <th className="px-4 py-2 border-b border-gray-300">Full Name</th>
+                                <th className="px-4 py-2 border-b border-gray-300">Age</th>
+                                <th className="px-4 py-2 border-b border-gray-300">Genre</th>
+                                <th className="px-4 py-2 border-b border-gray-300">Adresse</th>
+                                <th className="px-4 py-2 border-b border-gray-300">Antécédents</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {users.map((user) => (
+                                <tr key={user.id} className="hover:bg-gray-100">
+                                    <td className="px-4 py-2 border-b border-gray-300">{user.email}</td>
+                                    <td className="px-4 py-2 border-b border-gray-300">{user.fullName}</td>
+                                    <td className="px-4 py-2 border-b border-gray-300">{user.age}</td>
+                                    <td className="px-4 py-2 border-b border-gray-300">{user.genre}</td>
+                                    <td className="px-4 py-2 border-b border-gray-300">{user.adresse}</td>
+                                    <td className="px-4 py-2 border-b border-gray-300">{user.antecedents}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
             <Footer />
         </>
+
     );
 };
 
