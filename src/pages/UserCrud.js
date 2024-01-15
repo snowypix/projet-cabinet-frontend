@@ -149,7 +149,7 @@ const UserCrud = () => {
             </div>
             <div className="max-w-2xl mx-auto my-8">
                 <h2 className="text-xl font-bold text-gray-700 mb-4">User List</h2>
-                <div className="max-w-4xl mx-auto my-8 overflow-x-auto">
+                <div className="max-w-4xl mx-auto overflow-x-auto">
                     <table className="min-w-full table-auto border-collapse border border-gray-300">
                         <thead>
                             <tr className="bg-gray-200">
@@ -164,19 +164,19 @@ const UserCrud = () => {
                         <tbody>
                             {users.map((user) => (
                                 <tr key={user.id} className="hover:bg-gray-100">
-                                    <td className="px-4 py-2 border-b border-gray-300">{user.email}</td>
-                                    <td className="px-4 py-2 border-b border-gray-300">{user.fullName}</td>
-                                    <td className="px-4 py-2 border-b border-gray-300">{user.age}</td>
-                                    <td className="px-4 py-2 border-b border-gray-300">{user.genre}</td>
-                                    <td className="px-4 py-2 border-b border-gray-300">{user.adresse}</td>
-                                    <td className="px-4 py-2 border-b border-gray-300">{user.antecedents}</td>
+                                    <td className="px-4 py-2 border-b border-gray-300 truncate">{user.email}</td>
+                                    <td className="px-4 py-2 border-b border-gray-300 truncate">{user.fullName}</td>
+                                    <td className="px-4 py-2 border-b border-gray-300 truncate">{user.age}</td>
+                                    <td className="px-4 py-2 border-b border-gray-300 truncate">{user.genre}</td>
+                                    <td className="px-4 py-2 border-b border-gray-300 truncate">{user.adresse}</td>
+                                    <td className="px-4 py-2 border-b border-gray-300 truncate">{user.antecedents}</td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
                 </div>
-
             </div>
+
             <Footer />
         </>
 
