@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import HeaderAdmin from '../components/HeaderAdmin';
 import Footer from '../components/Footer';
+import { jwtDecode } from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
 
 const UserCrud = () => {
     const [users, setUsers] = useState([]);
-    const [newUser, setNewUser] = useState({
+    const navigate = useNavigate();
+    const [token, setToken] = useState('');
+    const [userType, setUserType] = useState('');
+        const [newUser, setNewUser] = useState({
         Email: '',
         Password: '',
         FullName: '',
@@ -19,10 +24,21 @@ const UserCrud = () => {
     });
 
     useEffect(() => {
-        // Fetch on page load
-        fetchUsers();
-    }, []);
-
+    if (localStorage.getItem('token')) {
+        try {
+        const decoded = jwtDecode(localStorage.getItem('token'));
+        setUserType(decoded.Type || '');
+        if (userType === "Medecin" || userType === "Infirmier" || userType === "Patient") {navigate('/');}
+        else {fetchUsers();}
+        }
+        
+        catch (error)
+        {console.error('Error decoding token:', error);}
+    }
+    }, [token]);
+    
+    
+    
     const fetchUsers = async () => {
         try {
             const response = await fetch('https://localhost:7248/User/all2', {
@@ -129,18 +145,12 @@ const UserCrud = () => {
                     <input className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" name="Email" value={newUser.Email} onChange={handleInputChange} placeholder="Email" />
                     <input className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" type="password" name="Password" value={newUser.Password} onChange={handleInputChange} placeholder="Mot de passe" />
                     <input className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" name="FullName" value={newUser.FullName} onChange={handleInputChange} placeholder="Nom complet" />
-                    <select
-                        className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        name="Genre"
-                        value={newUser.Genre}
-                        onChange={handleInputChange}
-                    >
+                    <select className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" name="Genre" value={newUser.Genre} onChange={handleInputChange}>
                         <option value="Homme">Homme</option>
                         <option value="Femme">Femme</option>
                     </select>
                     <input className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" type="number" name="Age" value={newUser.Age} onChange={handleInputChange} placeholder="Age" />
                     <input className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" name="Adresse" value={newUser.Adresse} onChange={handleInputChange} placeholder="Adresse" />
-
                     <select className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" name="UserType" value={newUser.UserType} onChange={handleInputChange}>
                         <option value="Admin">Admin</option>
                         <option value="Patient">Patient</option>
