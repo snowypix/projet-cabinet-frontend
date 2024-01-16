@@ -26,7 +26,7 @@ const UserPanel = () => {
                         <Link to="/user-panel/rdvs" className="text-blue-500 hover:text-blue-600">Consulter les RDVs</Link>
                     </div>
 
-                    <div class="card bg-white shadow-lg rounded-lg overflow-hidden p-4 hover:shadow-xl transition-shadow duration-300">
+                    <div className="card bg-white shadow-lg rounded-lg overflow-hidden p-4 hover:shadow-xl transition-shadow duration-300">
                         <img src="rdv.png" alt="2" className="w-full h-32 sm:h-48 object-cover" />
                         <Link to="/user-panel/create" className="text-blue-500 hover:text-blue-600">Créer un rendez-vous</Link>
                     </div>

@@ -9,7 +9,7 @@ const UserCrud = () => {
     const navigate = useNavigate();
     const [token, setToken] = useState('');
     const [userType, setUserType] = useState('');
-        const [newUser, setNewUser] = useState({
+    const [newUser, setNewUser] = useState({
         Email: '',
         Password: '',
         FullName: '',
@@ -24,21 +24,20 @@ const UserCrud = () => {
     });
 
     useEffect(() => {
-    if (localStorage.getItem('token')) {
-        try {
-        const decoded = jwtDecode(localStorage.getItem('token'));
-        setUserType(decoded.Type || '');
-        if (userType === "Medecin" || userType === "Infirmier" || userType === "Patient") {navigate('/');}
-        else {fetchUsers();}
+        if (localStorage.getItem('token')) {
+            try {
+                const decoded = jwtDecode(localStorage.getItem('token'));
+                setUserType(decoded.Type || '');
+                if (userType === "Medecin" || userType === "Infirmier" || userType === "Patient") { navigate('/'); }
+                else { fetchUsers(); }
+            }
+
+            catch (error) { console.error('Error decoding token:', error); }
         }
-        
-        catch (error)
-        {console.error('Error decoding token:', error);}
-    }
     }, [token]);
-    
-    
-    
+
+
+
     const fetchUsers = async () => {
         try {
             const response = await fetch('https://localhost:7248/User/all2', {
@@ -203,6 +202,8 @@ const UserCrud = () => {
                                         <Link to={`/admin-panel/update/${user.id}`} className="text-indigo-600 hover:text-indigo-900 px-4 py-2 rounded">
                                             Update
                                         </Link>
+                                    </td>
+                                    <td>
                                         <button onClick={() => handleDelete(user.id)} className="text-red-600 hover:text-red-900 px-4 py-2 rounded">
                                             Delete
                                         </button>

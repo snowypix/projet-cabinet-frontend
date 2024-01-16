@@ -21,28 +21,41 @@ const ConsulterRDVsMedecin = () => {
     return (
         <>
             <Header></Header>
-            <h1 class="text-2xl font-bold mb-4">RDVs List</h1>
+            <h1 className="text-3xl font-bold text-center text-blue-800 mb-8">RDVs List</h1>
 
-            <table class="table-auto">
+            <table className="min-w-full leading-normal shadow-md rounded-lg overflow-hidden">
                 <thead>
                     <tr>
-                        <th class="px-4 py-2">Date</th>
-                        <th class="px-4 py-2">Heure</th>
-                        <th class="px-4 py-2">Nom Patient</th>
+                        <th className="px-5 py-3 border-b-2 border-gray-300 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            Date
+                        </th>
+                        <th className="px-5 py-3 border-b-2 border-gray-300 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            Heure
+                        </th>
+                        <th className="px-5 py-3 border-b-2 border-gray-300 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            Nom Patient
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     {rdvs.map(rdv => (
-                        <tr key={rdv.rdvId}>
-                            <td class="px-4 py-2">{rdv.date}</td>
-                            <td class="px-4 py-2">{rdv.heure}</td>
-                            <td class="px-4 py-2">{rdv.patientName}</td>
+                        <tr key={rdv.rdvId} className="hover:bg-gray-100">
+                            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                <p className="text-gray-900 whitespace-no-wrap">{rdv.date}</p>
+                            </td>
+                            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                <p className="text-gray-900 whitespace-no-wrap">{rdv.heure}</p>
+                            </td>
+                            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                <p className="text-gray-900 whitespace-no-wrap">{rdv.patientName}</p>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
             <Footer></Footer>
         </>
+
     );
 };
 
