@@ -24,10 +24,14 @@ const Home = () => {
             } else if (decoded.Type === "Medecin") {
                 setUsertype("Medecin");
                 setUrl("https://localhost:7248/rdvs/med/");
+
+            } else if (decoded.Type === "Admin") {
+                setUsertype("Admin");
             }
             fetch(`${url}${decoded.Id}`)
                 .then(response => response.json())
                 .then(data => {
+                    console.log(data);
                     const now = new Date();
                     data.forEach(appointment => {
                         const modifiedDate = appointment.date.replace(/T.*$/, `T${appointment.heure}`);
@@ -63,6 +67,10 @@ const Home = () => {
                     ) : userType === "Medecin" ? (
                         <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
                             <Link to="doctor-panel">Mon espace médecin</Link>
+                        </button>
+                    ) : userType === "Admin" ? (
+                        <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                            <Link to="admin-panel">Mon espace administrateur</Link>
                         </button>
                     ) : (
                         <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">

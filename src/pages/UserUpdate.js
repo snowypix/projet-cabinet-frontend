@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import HeaderAdmin from '../components/HeaderAdmin';
 import Footer from '../components/Footer';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const UserUpdate = () => {
+    const navigate = useNavigate();
     const id = useParams();
     const [newUser, setNewUser] = useState({
         Email: '',
@@ -34,8 +35,7 @@ const UserUpdate = () => {
             });
 
             const data = await response.json();
-            console.log('Success:', data);
-
+            navigate("/admin-panel")
             // Reset the form and fetch updated user list
             setNewUser({
                 Email: '',

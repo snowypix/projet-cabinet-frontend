@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { Navigate } from 'react-router';
-
+import { useNavigate } from 'react-router';
 const Register = () => {
+    const navigate = useNavigate();
     const [FullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -29,12 +29,11 @@ const Register = () => {
             headers: { "Content-type": "application/json" },
             body: JSON.stringify(user)
         })
-            .then((res) =>
-            {
+            .then((res) => {
                 res.text().then((text) => console.log(text));
             })
 
-            .then((data) => {Navigate("/Login");})
+            .then((data) => { navigate("/Login"); })
 
             .catch((error) => {
                 console.log(error);
